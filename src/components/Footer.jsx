@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer>
       Copyright © 2022 Rafael Uen
       <a href="https://github.com/rtienpal/" target="_blank">
         <i className="fab fa-github"></i>

@@ -24,6 +24,18 @@ export default function Main() {
     fetchApi()
     console.log(cityData)
   }, [])
-
-  return <>{cityData && <div>{JSON.stringify(cityData)}</div>}123</>
+  return (
+    <main>
+      <div className="text">Previsão do Tempo</div>
+      <form>
+        <input
+          type="text"
+          placeholder="Insira aqui o nome da cidade"
+          onChange=""
+          name="cidade"
+        ></input>
+      </form>
+    </main>
+  )
+  // return <>{cityData && <main>{JSON.stringify(cityData)}</main>}</>
 }

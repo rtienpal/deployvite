@@ -1,3 +1,11 @@
+* {
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+  list-style: none;
+  border: 0;
+}
+
 $primary-light: #ddd;
 $primary-dark: #222831;
 $secondary-dark: #393e46;
@@ -6,34 +14,65 @@ $secondary-dark-active: #5b5f68;
 $header: #111720;
 $primary-yellow: #fac650;
 
-header {
-  display: flex;
-  justify-content: center;
-  padding: 40px 0px;
-  background-color: $header;
-  font-size: 32px;
-  color: $primary-yellow;
+html {
+  height: -webkit-fill-available; /* We have to fix html height */
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+body {
+  min-height: 100vw;
+  min-height: -webkit-fill-available;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 8px 0;
-  color: $primary-light;
-  font-size: 20px;
-  background-color: $primary-dark;
-  .fa-github {
-    color: $primary-light;
-    font-size: 24px;
-    transition: transform 0.3s ease-in-out;
-  }
-  .fa-github:hover {
-    transform: rotate(360deg) scale(1.2);
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    flex-grow: 1;
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background-color: $header;
+      font-size: 32px;
+      color: $primary-yellow;
+      flex: 1 1 50px;
+    }
+
+    main {
+      background: rgb(255, 165, 0);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 165, 0, 1) 0%,
+        rgba(255, 193, 77, 1) 100%
+      );
+      flex: 15 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    footer {
+      // position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex: 0 0 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      color: $primary-light;
+      font-size: 20px;
+      background-color: $primary-dark;
+      .fa-github {
+        color: $primary-light;
+        font-size: 24px;
+        transition: transform 0.3s ease-in-out;
+      }
+      .fa-github:hover {
+        transform: rotate(360deg) scale(1.2);
+      }
+    }
   }
 }
