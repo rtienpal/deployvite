@@ -1,0 +1,39 @@
+$primary-light: #ddd;
+$primary-dark: #222831;
+$secondary-dark: #393e46;
+$secondary-dark-hover: #4a4f57;
+$secondary-dark-active: #5b5f68;
+$header: #111720;
+$primary-yellow: #fac650;
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0px;
+  background-color: $header;
+  font-size: 32px;
+  color: $primary-yellow;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 0;
+  color: $primary-light;
+  font-size: 20px;
+  background-color: $primary-dark;
+  .fa-github {
+    color: $primary-light;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  .fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+  }
+}
