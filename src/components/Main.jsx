@@ -1,5 +1,7 @@
 import api from "../api/get"
 import React from "react"
+import CapitalsInfo from "./CapitalsInfo"
+import CapitalsInfoFallback from "./CapitalsInfoFallback"
 
 export default function Main() {
   const [cityData, setCityData] = React.useState([
@@ -34,62 +36,70 @@ export default function Main() {
       cityName: "Belém",
     },
     {
-      apiCityId: "riodejaneiro,RJ",
+      apiCityId: "salvador,ba",
       min: "-",
       max: "-",
       cityName: "Salvador",
     },
     {
-      apiCityId: "riodejaneiro,RJ",
+      apiCityId: "curitiba,pr",
       min: "-",
       max: "-",
       cityName: "Curitiba",
     },
     {
-      apiCityId: "riodejaneiro,RJ",
+      apiCityId: "fortaleza,ce",
       min: "-",
       max: "-",
       cityName: "Fortaleza",
     },
     {
-      apiCityId: "riodejaneiro,RJ",
+      apiCityId: "manaus,am",
       min: "-",
       max: "-",
       cityName: "Manaus",
     },
     {
-      apiCityId: "riodejaneiro,RJ",
+      apiCityId: "joao%20pessoa,pb",
       min: "-",
       max: "-",
       cityName: "João Pessoa",
     },
   ])
-  console.log(cityData)
   const [cityStatus, setCityStatus] = React.useState("idle")
-
+  const [count, setCount] = React.useState(0)
   React.useEffect(() => {
-    const fetchApi = async () => {
-      try {
-        const response = await api.get("Salvador,BA")
-        setCityData(response.data.results.city_name)
-        setCityStatus("resolved")
-      } catch (err) {
-        if (err.response) {
-          console.log(err.response.data)
-          console.log(err.response.status)
-          console.log(err.response.headers)
-        } else {
-          console.log(`Error: ${err.message}`)
-        }
-      }
-    }
+    setCityStatus('idle')
+    setCityData((prevState) => {
+      prevState.map((city) => {
+        const newArray = city
+        const fetchApi = async () => {
+          try {
+            const response = await api.get(city.apiCityId)
+            newArray.min = response.data.results.forecast[0].min
+            newArray.max = response.data.results.forecast[0].max
 
-    fetchApi()
-    console.log(cityData)
-  }, [])
+          } catch (err) {
+            if (err.response) {
+              console.log(err.response.data)
+              console.log(err.response.status)
+              console.log(err.response.headers)
+            } else {
+              console.log(`Error: ${err.message}`)
+            }
+          }
+        }
+        fetchApi()
+        return newArray
+      })
+      return prevState;
+    })
+    setCityStatus("resolved")
+  }, [cityStatus])
+
   return (
     <main>
-      {cityStatus === "resolved" && <div>{JSON.stringify(cityData)}</div>}
+      
       <div className="title-city-input">
         <div className="title">
           <h1>Previsão do Tempo</h1>
@@ -114,38 +124,9 @@ export default function Main() {
         <div className="capitals capitals-gridtitle gridtitle-min">Min</div>
         <div className="capitals capitals-gridtitle gridtitle-max">Max</div>
         <div className="capitals capitals-gridtitle gridtitle-city">Cidade</div>
-        <div className="capitals capitals-city city-min1">8º</div>
-        <div className="capitals capitals-city city-max1">8º</div>
-        <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min2">19º</div>
-        <div className="capitals capitals-city city-max2">19º</div>
-        <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min1">8º</div>
-        <div className="capitals capitals-city city-max1">8º</div>
-        <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min2">19º</div>
-        <div className="capitals capitals-city city-max2">19º</div>
-        <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min1">8º</div>
-        <div className="capitals capitals-city city-max1">8º</div>
-        <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min2">19º</div>
-        <div className="capitals capitals-city city-max2">19º</div>
-        <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min1">8º</div>
-        <div className="capitals capitals-city city-max1">8º</div>
-        <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min2">19º</div>
-        <div className="capitals capitals-city city-max2">19º</div>
-        <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min1">8º</div>
-        <div className="capitals capitals-city city-max1">8º</div>
-        <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-        <div className="capitals capitals-city city-min2">19º</div>
-        <div className="capitals capitals-city city-max2">19º</div>
-        <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
+        {cityStatus === 'resolved' ? <CapitalsInfo cityData={cityData} /> : <CapitalsInfoFallback />}
       </div>
+      <button onClick={()=>setCount(prevCount=>prevCount+1)}>{count}</button>
     </main>
   )
-  // return <>{cityData && <main>{JSON.stringify(cityData)}</main>}</>
 }
