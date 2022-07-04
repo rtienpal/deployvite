@@ -2,6 +2,8 @@ import api from "../api/get"
 import React from "react"
 import CapitalsInfo from "./CapitalsInfo"
 import CapitalsInfoFallback from "./CapitalsInfoFallback"
+import cityListData from "./cityListData"
+import SearchBar from "./SearchBar"
 
 export default function Main() {
   const [cityData, setCityData] = React.useState([
@@ -69,7 +71,7 @@ export default function Main() {
   const [cityStatus, setCityStatus] = React.useState("idle")
   const [count, setCount] = React.useState(0)
   React.useEffect(() => {
-    setCityStatus('idle')
+    setCityStatus("idle")
     setCityData((prevState) => {
       prevState.map((city) => {
         const newArray = city
@@ -78,7 +80,6 @@ export default function Main() {
             const response = await api.get(city.apiCityId)
             newArray.min = response.data.results.forecast[0].min
             newArray.max = response.data.results.forecast[0].max
-
           } catch (err) {
             if (err.response) {
               console.log(err.response.data)
@@ -92,27 +93,21 @@ export default function Main() {
         fetchApi()
         return newArray
       })
-      return prevState;
+      return prevState
     })
     setCityStatus("resolved")
   }, [cityStatus])
 
   return (
     <main>
-      
       <div className="title-city-input">
         <div className="title">
           <h1>Previsão do Tempo</h1>
         </div>
-        <form>
-          <input
-            className="input"
-            type="text"
-            placeholder="Insira aqui o nome da cidade"
-            onChange=""
-            name="cidade"
-          ></input>
-        </form>
+        <SearchBar
+          placeholder="Insira aqui o nome da cidade"
+          data={cityListData}
+        />
       </div>
       <div className="capitals capitals-grid">
         <div className="capitals capitals-text">
@@ -124,9 +119,15 @@ export default function Main() {
         <div className="capitals capitals-gridtitle gridtitle-min">Min</div>
         <div className="capitals capitals-gridtitle gridtitle-max">Max</div>
         <div className="capitals capitals-gridtitle gridtitle-city">Cidade</div>
-        {cityStatus === 'resolved' ? <CapitalsInfo cityData={cityData} /> : <CapitalsInfoFallback />}
+        {cityStatus === "resolved" ? (
+          <CapitalsInfo cityData={cityData} />
+        ) : (
+          <CapitalsInfoFallback />
+        )}
       </div>
-      <button onClick={()=>setCount(prevCount=>prevCount+1)}>{count}</button>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
+        {count}
+      </button>
     </main>
   )
 }

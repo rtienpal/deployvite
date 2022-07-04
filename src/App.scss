@@ -62,18 +62,61 @@ body {
         gap: 20px;
         flex-grow: 1;
         .title {
-          color: white;
+          color: $main-white;
           font-size: 1.5em;
         }
-        .input {
-          width: 350px;
-          height: 40px;
-          border-radius: 2px;
-          padding: 2px 10px;
-          background-image: url(http://www.devmedia.com.br/imagens/2013/buscar_grey.png);
-          background-repeat: no-repeat;
-          background-position: right;
-          background-position-x: calc(100% - 10px);
+        form {
+          display: flex;
+          flex-direction: column;
+          .searchInputs {
+            display: flex;
+            // background-image: url(http://www.devmedia.com.br/imagens/2013/buscar_grey.png);
+            // background-repeat: no-repeat;
+            // background-position: right;
+            // background-position-x: calc(100% - 10px);
+            .input {
+              width: 300px;
+              height: 40px;
+              border-radius: 2px;
+              padding: 2px 10px;
+              background-color: $main-white;
+              border: 0;
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .input:focus {
+              outline: none !important;
+            }
+            .searchIcon {
+              background-color: $main-white;
+              width: 50px;
+              height: auto;
+              place-items: center;
+              display: grid;
+              border-radius: 2px;
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+              cursor: pointer;
+            }
+          }
+          .dataResults {
+            display: flex;
+            flex-direction: column;
+            max-height: 160px;
+            overflow: hidden;
+            overflow-y: auto;
+            border-radius: 2px;
+            background-color: $main-white;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            padding: 0px 10px 5px;
+            .dataResult {
+              cursor: pointer;
+            }
+            .dataResult:hover {
+              background-color: $primary-light;
+            }
+          }
         }
       }
       .capitals-grid {
@@ -82,7 +125,8 @@ body {
         justify-items: start;
         align-items: center;
         display: grid;
-        grid-template: repeat(7, 1fr) / repeat(2, 1fr), auto, repeat(2, 1fr), auto;
+        grid-template: repeat(7, 1fr) / repeat(2, 1fr), auto, repeat(2, 1fr),
+          auto;
         grid-gap: 10px;
         .capitals-text {
           color: $main-white;
