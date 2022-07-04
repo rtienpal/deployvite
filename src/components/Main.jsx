@@ -62,10 +62,10 @@ export default function Main() {
       cityName: "Manaus",
     },
     {
-      apiCityId: "joao%20pessoa,pb",
+      apiCityId: "recife,pe",
       min: "-",
       max: "-",
-      cityName: "João Pessoa",
+      cityName: "Recife",
     },
   ])
   const [cityStatus, setCityStatus] = React.useState("idle")
