@@ -5645,4 +5645,35 @@ const b = a.cities.map((elem) => {
   }
 })
 
-export default b
+const c = b.map((elem) => {
+  const newName = wordFilter(elem.nome)
+  return {
+    estado: elem.estado,
+    nome: elem.nome,
+    apiCityId: `${newName},${elem.estado}`,
+  }
+})
+
+console.log(c[7])
+
+function wordFilter(word) {
+  const wordArray = word.split("")
+  const newWord = wordArray.map((elem) => {
+    if (elem === "á" || elem === "ã" || elem === "â") {
+      return "a"
+    } else if (elem === "é" || elem === "ê") {
+      return "i"
+    } else if (elem === "í" || elem === "î") {
+      return "i"
+    } else if (elem === "ó" || elem === "õ" || elem === "ô") {
+      return "o"
+    } else if (elem === "ú" || elem === "ô") {
+      return "u"
+    } else {
+      return elem
+    }
+  })
+  return newWord.join("")
+}
+
+export default c

@@ -1,9 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React from "react"
-export default function ({ placeholder, data }) {
+export default function ({ placeholder, data, searchWord, setSearchWord }) {
   const [filteredData, setFilteredData] = React.useState([])
-  const [searchWord, setSearchWord] = React.useState("")
+
   const handleFilter = (event) => {
     const searchWord = event.target.value
     setSearchWord(searchWord)
@@ -15,7 +15,7 @@ export default function ({ placeholder, data }) {
     }
     setFilteredData(newFilter)
   }
-  function clearSearchWord () {
+  function clearSearchWord() {
     setFilteredData([])
     setSearchWord("")
   }
@@ -32,7 +32,11 @@ export default function ({ placeholder, data }) {
           value={searchWord}
         ></input>
         <div className="searchIcon">
-          {searchWord ? <CloseIcon id="closeBtn" onClick={clearSearchWord}/> : <SearchIcon />}
+          {searchWord ? (
+            <CloseIcon id="closeBtn" onClick={clearSearchWord} />
+          ) : (
+            <SearchIcon />
+          )}
         </div>
       </div>
       {filteredData.length > 0 && (

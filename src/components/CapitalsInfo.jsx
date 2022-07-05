@@ -1,6 +1,6 @@
-export default function CapitalsInfo({ cityData }) {
+export default function CapitalsInfo({ citiesData }) {
   let count = 1
-  const capitalsInfo = cityData.map((city) => {
+  const capitalsInfo = citiesData.map((city) => {
     count++
     if (count % 2 === 0) {
       return (
