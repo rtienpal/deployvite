@@ -37,7 +37,7 @@ export default function ({ placeholder, data }) {
       </div>
       {filteredData.length > 0 && (
         <div className="dataResults">
-          {filteredData.slice(0, 7).map((city, key) => {
+          {filteredData.slice(0, 15).map((city, key) => {
             return (
               <div className="dataResult" key={key}>
                 {`${city.nome} - ${city.estado}`}

@@ -71,7 +71,7 @@ body {
           flex-direction: column;
           .searchInputs {
             display: flex;
-            
+
             // background-image: url(http://www.devmedia.com.br/imagens/2013/buscar_grey.png);
             // background-repeat: no-repeat;
             // background-position: right;
@@ -104,7 +104,7 @@ body {
             overflow: hidden;
             overflow-y: auto;
             background-color: $main-white;
-            width:350px;
+            width: 350px;
             position: absolute;
             margin-top: 40px;
             padding: 0px 10px 5px;
@@ -134,6 +134,9 @@ body {
         .capitals-gridtitle {
           color: $secondary-dark-hover;
           font-size: 0.7em;
+        }
+        .nested {
+          display: contents;
         }
         .capitals-city {
           font-weight: bold;

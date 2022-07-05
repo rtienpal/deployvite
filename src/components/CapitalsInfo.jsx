@@ -4,49 +4,33 @@ export default function CapitalsInfo({ cityData }) {
     count++
     if (count % 2 === 0) {
       return (
-        <>
-          <div
-            className="capitals capitals-city city-min1"
-            key={`${count}${city.cityName}`}
-          >
-            {city.min}
-          </div>
-          <div
-            className="capitals capitals-city city-max1"
-            key={`${count + 1}${city.cityName}`}
-          >
-            {city.max}
-          </div>
-          <div
-            className="capitals capitals-city city-name1"
-            key={`${city.cityName}`}
-          >
+        <div className="nested" key={city.cityName}>
+          <div className="capitals capitals-city city-min1">{city.min}</div>
+          <div className="capitals capitals-city city-max1">{city.max}</div>
+          <div className="capitals capitals-city city-name1">
             {city.cityName}
           </div>
-        </>
+        </div>
       )
     } else {
       return (
-        <>
+        <div className="nested" key={city.cityName}>
           <div
             className="capitals capitals-city city-min2"
-            key={`${count}${city.cityName}`}
           >
             {city.min}
           </div>
           <div
             className="capitals capitals-city city-max2"
-            key={`${count + 1}${city.cityName}`}
           >
             {city.max}
           </div>
           <div
             className="capitals capitals-city city-name2"
-            key={`${city.cityName}`}
           >
             {city.cityName}
           </div>
-        </>
+        </div>
       )
     }
   })
