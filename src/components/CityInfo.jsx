@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function CityInfo({searchWord}) {
-    return <div>{searchWord}</div>
+    return <div className="cityInfoContainer">{searchWord}</div>
 }
