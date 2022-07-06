@@ -5654,7 +5654,6 @@ const c = b.map((elem) => {
   }
 })
 
-console.log(c[7])
 
 function wordFilter(word) {
   const wordArray = word.split("")

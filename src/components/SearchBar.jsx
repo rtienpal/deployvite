@@ -43,7 +43,7 @@ export default function ({ placeholder, data, searchWord, setSearchWord }) {
         <div className="dataResults">
           {filteredData.slice(0, 15).map((city, key) => {
             return (
-              <div className="dataResult" key={key}>
+              <div className="dataResult" key={key} onClick={()=>console.log(city.apiCityId)}>
                 {`${city.nome} - ${city.estado}`}
               </div>
             )
