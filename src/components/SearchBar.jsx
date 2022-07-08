@@ -1,8 +1,11 @@
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React from "react"
-export default function ({ placeholder, data, searchWord, setSearchWord }) {
+
+export default function ({ placeholder, data, setSeachCityInfo }) {
   const [filteredData, setFilteredData] = React.useState([])
+  const [searchWord, setSearchWord] = React.useState("")
+
 
   const handleFilter = (event) => {
     const searchWord = event.target.value
@@ -19,6 +22,7 @@ export default function ({ placeholder, data, searchWord, setSearchWord }) {
     setFilteredData([])
     setSearchWord("")
   }
+
 
   return (
     <form>
@@ -43,7 +47,7 @@ export default function ({ placeholder, data, searchWord, setSearchWord }) {
         <div className="dataResults">
           {filteredData.slice(0, 15).map((city, key) => {
             return (
-              <div className="dataResult" key={key} onClick={()=>console.log(city.apiCityId)}>
+              <div className="dataResult" key={key} onClick={()=>setSeachCityInfo(city.apiCityId)}>
                 {`${city.nome} - ${city.estado}`}
               </div>
             )
