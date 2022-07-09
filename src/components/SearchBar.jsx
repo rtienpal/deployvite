@@ -12,6 +12,7 @@ export default function SearchBar({
 }) {
   const [filteredData, setFilteredData] = React.useState([])
   const [searchWord, setSearchWord] = React.useState("")
+  const [chosenCity, setChosenCity] = React.useState("")
 
   async function updateCity(cityTwo) {
     setCityTwoStatus("idle")
@@ -19,6 +20,17 @@ export default function SearchBar({
     setCityTwo(newCityTwo)
     setCityTwoStatus("resolved")
   }
+  
+  const handleClickCity = () => {
+    
+    const newObject = {
+      apiCityId: chosenCity
+    }
+    console.log(newObject)
+    console.log(cityTwo)
+    updateCity(newObject)
+  }
+
 
   const handleFilter = (event) => {
     const searchWord = event.target.value
@@ -62,14 +74,12 @@ export default function SearchBar({
                 className="dataResult"
                 key={key}
                 onClick={() => {
-                  const newObject = {
-                    apiCityId: city.apiCityId,
-                  }
-                  setCityTwo(newObject)
-                  console.log(city.apiCityId, cityTwo)
-                  updateCity(cityTwo)
+                  setChosenCity(city.apiCityId)
+                  handleClickCity()
                   clearSearchWord()
-                }}
+                }
+                
+              }
               >
                 {`${city.nome} - ${city.estado}`}
               </div>

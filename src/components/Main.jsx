@@ -29,6 +29,22 @@ export default function Main() {
       return "nublado"
     } else if (element === "rain") {
       return "chuva"
+    } else if (element === "clear_day") {
+      return "dia limpo"
+    } else if (element === "clear_night") {
+      return "noite limpa"
+    } else if (element === "cloudly_day") {
+      return "nublado de dia"
+    } else if (element === "cloudly_night") {
+      return "nublado de noite"
+    } else if (element === "fog") {
+      return "neblina"
+    } else if (element === "hail") {
+      return "granizo"
+    } else if (element === "snow") {
+      return "neve"
+    } else if (element === "storm") {
+      return "tempestade"
     }
   }
 
@@ -87,8 +103,8 @@ export default function Main() {
           data={cityListData}
           fetchApi={fetchApi}
           setCityTwoStatus={setCityTwoStatus}
-          cityTwo={cityTwo}
           setCityTwo={setCityTwo}
+          cityTwo={cityTwo}
         />
       </div>
       <div className="capitals capitals-grid">
@@ -102,9 +118,12 @@ export default function Main() {
         <div className="capitals capitals-gridtitle gridtitle-max">Max</div>
         <div className="capitals capitals-gridtitle gridtitle-city">Cidade</div>
 
-        <CapitalsInfo fetchApi={fetchApi} />
+        <CapitalsInfo
+          fetchApi={fetchApi}
+          setCityTwoStatus={setCityTwoStatus}
+          setCityTwo={setCityTwo}
+        />
       </div>
-      
     </main>
   )
 }

@@ -1,6 +1,10 @@
 import React from "react"
 import CapitalsInfoFallback from "./CapitalsInfoFallback"
-export default function CapitalsInfo({ fetchApi }) {
+export default function CapitalsInfo({
+  fetchApi,
+  setCityTwo,
+  setCityTwoStatus,
+}) {
   const [citiesData, setCitiesData] = React.useState([
     {
       apiCityId: "riodejaneiro,RJ",
@@ -9,7 +13,7 @@ export default function CapitalsInfo({ fetchApi }) {
       cityName: "Rio de Janeiro",
     },
     {
-      apiCityId: "saopaulo,SP",
+      apiCityId: "sao paulo,SP",
       min: "-",
       max: "-",
       cityName: "Sao Paulo",
@@ -92,7 +96,15 @@ export default function CapitalsInfo({ fetchApi }) {
     count++
     if (count % 2 === 0) {
       return (
-        <div className="nested" key={city.cityName}>
+        <div
+          className="nested"
+          key={city.cityName}
+          onClick={() => {
+            console.log(city)
+            setCityTwo(city)
+            setCityTwoStatus("resolved")
+          }}
+        >
           <div className="capitals capitals-city city-min1">{city.min}</div>
           <div className="capitals capitals-city city-max1">{city.max}</div>
           <div className="capitals capitals-city city-name1">
@@ -103,7 +115,14 @@ export default function CapitalsInfo({ fetchApi }) {
       )
     } else {
       return (
-        <div className="nested" key={city.cityName}>
+        <div
+          className="nested"
+          key={city.cityName}
+          onClick={() => {
+            setCityTwo(city)
+            setCityTwoStatus("resolved")
+          }}
+        >
           <div className="capitals capitals-city city-min2">{city.min}</div>
           <div className="capitals capitals-city city-max2">{city.max}</div>
           <div className="capitals capitals-city city-name2">
