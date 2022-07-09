@@ -2,10 +2,23 @@ import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React from "react"
 
-export default function ({ placeholder, data, setSeachCityInfo }) {
+export default function SearchBar({
+  placeholder,
+  data,
+  fetchApi,
+  setCityTwoStatus,
+  cityTwo,
+  setCityTwo,
+}) {
   const [filteredData, setFilteredData] = React.useState([])
   const [searchWord, setSearchWord] = React.useState("")
 
+  async function updateCity(cityTwo) {
+    setCityTwoStatus("idle")
+    const newCityTwo = await fetchApi(cityTwo)
+    setCityTwo(newCityTwo)
+    setCityTwoStatus("resolved")
+  }
 
   const handleFilter = (event) => {
     const searchWord = event.target.value
@@ -22,8 +35,6 @@ export default function ({ placeholder, data, setSeachCityInfo }) {
     setFilteredData([])
     setSearchWord("")
   }
-
-
   return (
     <form>
       <div className="searchInputs">
@@ -47,7 +58,19 @@ export default function ({ placeholder, data, setSeachCityInfo }) {
         <div className="dataResults">
           {filteredData.slice(0, 15).map((city, key) => {
             return (
-              <div className="dataResult" key={key} onClick={()=>setSeachCityInfo(city.apiCityId)}>
+              <div
+                className="dataResult"
+                key={key}
+                onClick={() => {
+                  const newObject = {
+                    apiCityId: city.apiCityId,
+                  }
+                  setCityTwo(newObject)
+                  console.log(city.apiCityId, cityTwo)
+                  updateCity(cityTwo)
+                  clearSearchWord()
+                }}
+              >
                 {`${city.nome} - ${city.estado}`}
               </div>
             )

@@ -1,7 +1,6 @@
 import React from "react"
 import CapitalsInfoFallback from "./CapitalsInfoFallback"
-export default function CapitalsInfo({fetchApi}) {
-  
+export default function CapitalsInfo({ fetchApi }) {
   const [citiesData, setCitiesData] = React.useState([
     {
       apiCityId: "riodejaneiro,RJ",
@@ -66,12 +65,12 @@ export default function CapitalsInfo({fetchApi}) {
   ])
   const [citiesStatus, setCitiesStatus] = React.useState("idle")
 
-  function updateCity(city) {
-    const newCity = fetchApi(city)
+  async function updateCity(city) {
+    const newCity = await fetchApi(city)
     setCitiesData((prevState) => {
       const newArray = prevState.map((elem) => {
         if (elem.cityName === newCity.cityName) {
-          return [...newCity]
+          return newCity
         } else {
           return elem
         }
@@ -99,6 +98,7 @@ export default function CapitalsInfo({fetchApi}) {
           <div className="capitals capitals-city city-name1">
             {city.cityName}
           </div>
+          {/* <span>{JSON.stringify(citiesData)}</span> */}
         </div>
       )
     } else {
@@ -115,13 +115,7 @@ export default function CapitalsInfo({fetchApi}) {
   })
 
   return (
-    <>
-      {citiesStatus === "resolved" ? (
-        capitalsInfo 
-      ) : (
-        <CapitalsInfoFallback />
-      )}
-    </>
+    <>{citiesStatus === "resolved" ? capitalsInfo : <CapitalsInfoFallback />}</>
   )
 }
 

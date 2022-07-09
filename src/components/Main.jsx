@@ -6,16 +6,42 @@ import SearchBar from "./SearchBar"
 import CityInfo from "./CityInfo"
 
 export default function Main() {
+  function translate(element) {
+    if (element === "Sat") {
+      return "Sábado"
+    } else if (element === "Sun") {
+      return "Domingo"
+    } else if (element === "Mon") {
+      return "Segunda"
+    } else if (element === "Tue") {
+      return "Terça"
+    } else if (element === "Wed") {
+      return "Quarta"
+    } else if (element === "Thu") {
+      return "Quinta"
+    } else if (element === "Fri") {
+      return "Sexta"
+    } else if (element === "night") {
+      return "noite"
+    } else if (element === "day") {
+      return "dia"
+    } else if (element === "cloud") {
+      return "nublado"
+    } else if (element === "rain") {
+      return "chuva"
+    }
+  }
+
   async function fetchApi(city) {
     try {
       const response = await api.get(city.apiCityId)
       city.nameState = response.data.results.city
       city.currentWind = response.data.results.wind_speedy
-      city.dayNight = response.data.results.currently
+      city.dayNight = translate(response.data.results.currently)
       city.min = response.data.results.forecast[0].min
       city.max = response.data.results.forecast[0].max
       city.currentTemp = response.data.results.temp
-      city.currentCondition = response.data.results.description
+      city.currentCondition = translate(response.data.results.condition_slug)
       city.currentHumity = response.data.results.humidity
       city.dayTwoMin = response.data.results.forecast[1].min
       city.dayTwoMax = response.data.results.forecast[1].max
@@ -27,6 +53,11 @@ export default function Main() {
       city.dayFiveMax = response.data.results.forecast[4].max
       city.daySixMin = response.data.results.forecast[5].min
       city.daySixMax = response.data.results.forecast[5].max
+      city.dayTwoDay = translate(response.data.results.forecast[1].weekday)
+      city.dayThreeDay = translate(response.data.results.forecast[2].weekday)
+      city.dayFourDay = translate(response.data.results.forecast[3].weekday)
+      city.dayFiveDay = translate(response.data.results.forecast[4].weekday)
+      city.daySixDay = translate(response.data.results.forecast[5].weekday)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -39,9 +70,10 @@ export default function Main() {
     console.log("fetchApi used")
     return city
   }
-  const [count, setCount] = React.useState(0)
-  const [searchCityInfo, setSeachCityInfo] = React.useState("")
-  
+  const [cityTwoStatus, setCityTwoStatus] = React.useState("idle")
+  const [cityTwo, setCityTwo] = React.useState({
+    apiCityId: "recife,pe",
+  })
 
   return (
     <main>
@@ -49,11 +81,14 @@ export default function Main() {
         <div className="title">
           <h1>Previsão do Tempo</h1>
         </div>
-        <CityInfo searchCityInfo={searchCityInfo} fetchApi={fetchApi} />
+        {cityTwoStatus === "resolved" && <CityInfo cityTwo={cityTwo} />}
         <SearchBar
           placeholder="Insira aqui o nome da cidade"
           data={cityListData}
-          setSeachCityInfo={setSeachCityInfo}
+          fetchApi={fetchApi}
+          setCityTwoStatus={setCityTwoStatus}
+          cityTwo={cityTwo}
+          setCityTwo={setCityTwo}
         />
       </div>
       <div className="capitals capitals-grid">
@@ -69,9 +104,7 @@ export default function Main() {
 
         <CapitalsInfo fetchApi={fetchApi} />
       </div>
-      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-        {count}
-      </button>
+      
     </main>
   )
 }
