@@ -49,6 +49,7 @@ export default function Main() {
   }
 
   async function fetchApi(city) {
+    console.log(city)
     try {
       const response = await api.get(city.apiCityId)
       city.nameState = response.data.results.city
@@ -83,7 +84,6 @@ export default function Main() {
         console.log(`Error: ${err.message}`)
       }
     }
-    console.log("fetchApi used")
     return city
   }
   const [cityTwoStatus, setCityTwoStatus] = React.useState("idle")
@@ -104,7 +104,8 @@ export default function Main() {
           fetchApi={fetchApi}
           setCityTwoStatus={setCityTwoStatus}
           setCityTwo={setCityTwo}
-          cityTwo={cityTwo}
+          cityTwoStatus={cityTwoStatus}
+          translate={translate}
         />
       </div>
       <div className="capitals capitals-grid">

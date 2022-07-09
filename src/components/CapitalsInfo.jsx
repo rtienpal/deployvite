@@ -1,5 +1,4 @@
 import React from "react"
-import CapitalsInfoFallback from "./CapitalsInfoFallback"
 export default function CapitalsInfo({
   fetchApi,
   setCityTwo,
@@ -134,37 +133,8 @@ export default function CapitalsInfo({
   })
 
   return (
-    <>{citiesStatus === "resolved" ? capitalsInfo : <CapitalsInfoFallback />}</>
+    <>{citiesStatus === "resolved" && capitalsInfo}</>
   )
 }
 
-/* <div className="capitals capitals-city city-min1">1º</div>
-      <div className="capitals capitals-city city-max1">8º</div>
-      <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min2">19º</div>
-      <div className="capitals capitals-city city-max2">19º</div>
-      <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min1">8º</div>
-      <div className="capitals capitals-city city-max1">8º</div>
-      <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min2">19º</div>
-      <div className="capitals capitals-city city-max2">19º</div>
-      <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min1">8º</div>
-      <div className="capitals capitals-city city-max1">8º</div>
-      <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min2">19º</div>
-      <div className="capitals capitals-city city-max2">19º</div>
-      <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min1">8º</div>
-      <div className="capitals capitals-city city-max1">8º</div>
-      <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min2">19º</div>
-      <div className="capitals capitals-city city-max2">19º</div>
-      <div className="capitals capitals-city city-name2">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min1">8º</div>
-      <div className="capitals capitals-city city-max1">8º</div>
-      <div className="capitals capitals-city city-name1">Rio de Janeiro</div>
-      <div className="capitals capitals-city city-min2">19º</div>
-      <div className="capitals capitals-city city-max2">19º</div>
-      <div className="capitals capitals-city city-name2">Rio de Janeiro</div> */
+

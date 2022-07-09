@@ -5661,12 +5661,12 @@ function wordFilter(word) {
     if (elem === "á" || elem === "ã" || elem === "â") {
       return "a"
     } else if (elem === "é" || elem === "ê") {
-      return "i"
+      return "e"
     } else if (elem === "í" || elem === "î") {
       return "i"
     } else if (elem === "ó" || elem === "õ" || elem === "ô") {
       return "o"
-    } else if (elem === "ú" || elem === "ô") {
+    } else if (elem === "ú" || elem === "û") {
       return "u"
     } else {
       return elem

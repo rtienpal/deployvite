@@ -7,30 +7,27 @@ export default function SearchBar({
   data,
   fetchApi,
   setCityTwoStatus,
-  cityTwo,
+  cityTwoStatus,
   setCityTwo,
 }) {
   const [filteredData, setFilteredData] = React.useState([])
   const [searchWord, setSearchWord] = React.useState("")
-  const [chosenCity, setChosenCity] = React.useState("")
+  const [chosenCity, setChosenCity] = React.useState([{
+    apiCityId: "recife,pe",
+  }])
 
-  async function updateCity(cityTwo) {
-    setCityTwoStatus("idle")
-    const newCityTwo = await fetchApi(cityTwo)
+  async function updateCity(chosenCity) {
+    setCityTwoStatus("pending")
+    const newCityTwo = await fetchApi(chosenCity)
     setCityTwo(newCityTwo)
     setCityTwoStatus("resolved")
   }
-  
-  const handleClickCity = () => {
-    
-    const newObject = {
-      apiCityId: chosenCity
-    }
-    console.log(newObject)
-    console.log(cityTwo)
-    updateCity(newObject)
-  }
 
+  React.useEffect(() => {
+    if (cityTwoStatus === "pending") {
+    updateCity(chosenCity)
+  }
+  }, [chosenCity])
 
   const handleFilter = (event) => {
     const searchWord = event.target.value
@@ -74,12 +71,16 @@ export default function SearchBar({
                 className="dataResult"
                 key={key}
                 onClick={() => {
-                  setChosenCity(city.apiCityId)
-                  handleClickCity()
-                  clearSearchWord()
-                }
-                
-              }
+                  setCityTwoStatus("pending")
+                  setChosenCity({
+                    apiCityId: city.apiCityId,
+                  })
+                  updateCity(chosenCity)
+
+                  // setChosenCity(city.apiCityId)
+                  // handleClickCity()
+                  // clearSearchWord()
+                }}
               >
                 {`${city.nome} - ${city.estado}`}
               </div>
